@@ -3,6 +3,9 @@
   <component name="PDMPlugin">
     <option name="skipTestSources" value="false" />
   </component>
+  <component name="ProjectResources">
+    <resource url="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700;800&amp;display=swap" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
