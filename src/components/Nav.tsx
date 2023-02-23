@@ -8,10 +8,12 @@ interface IProps {
   authToken: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   showModal: boolean;
+  setIsSignUp: Dispatch<SetStateAction<boolean>>;
 }
-export const Nav = ({ minimal, authToken, showModal, setShowModal }: IProps) => {
+export const Nav = ({ minimal, authToken, showModal, setShowModal, setIsSignUp }: IProps) => {
   const handleClick = () => {
     setShowModal(true);
+    setIsSignUp(false);
   };
   return (
     <nav>

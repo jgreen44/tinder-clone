@@ -2,23 +2,32 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 
 interface IProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  isSignUp: boolean;
+  setIsSignUp: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AuthModal = ({ setShowModal }: IProps) => {
+export const AuthModal = ({ setShowModal, setIsSignUp, isSignUp }: IProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error] = useState('');
+  const [error, setError] = useState('');
 
   const handleClick = () => {
     setShowModal(false);
+    setIsSignUp(true);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      if (isSignUp && password !== confirmPassword) {
+        setError('Passwords need to match');
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const isSignUp = true;
   return (
     <div className={'auth-modal'}>
       <div className={'close-icon'} onClick={handleClick}>
@@ -26,8 +35,7 @@ export const AuthModal = ({ setShowModal }: IProps) => {
       </div>
       <h2>{isSignUp ? 'CREATE ACCOUNT' : 'LOG IN'}</h2>
       <p>
-        By clicking Log In, you agree to our terms. Learn how we process your data in our Privacy Policy and Cookie
-        Policy.
+        By clicking Submit, you agree to our terms. Learn how we process your data in our Privacy and Cookie Policy.
       </p>
       <form onSubmit={handleSubmit}>
         <input
@@ -48,15 +56,17 @@ export const AuthModal = ({ setShowModal }: IProps) => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <input
-          type={'password'}
-          id={'checkPassword'}
-          name={'checkPassword'}
-          placeholder={'confirm password'}
-          required
-          value={confirmPassword}
-          onChange={e => setConfirmPassword(e.target.value)}
-        />
+        {isSignUp && (
+          <input
+            type={'password'}
+            id={'checkPassword'}
+            name={'checkPassword'}
+            placeholder={'confirm password'}
+            required
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+          />
+        )}
         <input className={'secondary-button'} type={'submit'} />
         <p>{error}</p>
       </form>
