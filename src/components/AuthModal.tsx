@@ -3,10 +3,9 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 interface IProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   isSignUp: boolean;
-  setIsSignUp: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AuthModal = ({ setShowModal, setIsSignUp, isSignUp }: IProps) => {
+export const AuthModal = ({ setShowModal, isSignUp }: IProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,7 +13,6 @@ export const AuthModal = ({ setShowModal, setIsSignUp, isSignUp }: IProps) => {
 
   const handleClick = () => {
     setShowModal(false);
-    setIsSignUp(true);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

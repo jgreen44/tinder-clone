@@ -5,16 +5,19 @@ import whiteLogo from '../assets/tinder_logo_white.png';
 
 interface IProps {
   minimal: boolean;
-  authToken: boolean;
+
   setShowModal: Dispatch<SetStateAction<boolean>>;
   showModal: boolean;
-  setIsSignUp: Dispatch<SetStateAction<boolean>>;
+  setIsSignUp?: Dispatch<SetStateAction<boolean>>;
 }
-export const Nav = ({ minimal, authToken, showModal, setShowModal, setIsSignUp }: IProps) => {
+export const Nav = ({ minimal, showModal, setShowModal, setIsSignUp }: IProps) => {
   const handleClick = () => {
     setShowModal(true);
-    setIsSignUp(false);
+    if (setIsSignUp) {
+      setIsSignUp(false);
+    }
   };
+  const authToken = true;
   return (
     <nav>
       <div className={'logo-container'}>

@@ -16,20 +16,14 @@ export const Home = () => {
 
   return (
     <div className={'overlay'}>
-      <Nav
-        minimal={false}
-        authToken={authToken}
-        setShowModal={setShowModal}
-        showModal={showModal}
-        setIsSignUp={setIsSignUp}
-      />
+      <Nav minimal={false} setShowModal={setShowModal} showModal={showModal} setIsSignUp={setIsSignUp} />
       <div className={'home'}>
-        <h1 style={{ color: 'white' }}>Swipe Right &#174;</h1>
+        <h1 className={'primary-title'}>Swipe Right &#174;</h1>
         <button className={'primary-button'} onClick={handleClick}>
           {authToken ? 'Log Out' : 'Create Account'}
         </button>
 
-        {showModal && <AuthModal setShowModal={setShowModal} setIsSignUp={setIsSignUp} isSignUp={isSignUp} />}
+        {showModal && <AuthModal setShowModal={setShowModal} isSignUp={isSignUp} />}
       </div>
     </div>
   );

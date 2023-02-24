@@ -184,6 +184,7 @@ nav .logo-container .logo {
     border-radius: 10px;
     transition: all 0.3s;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .onboarding form input[type=radio] {
@@ -237,6 +238,7 @@ nav .logo-container .logo {
 .card {
     width: 400px;
     height: 650px;
+    box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.30);
     border-radius: 30px;
     background-size: cover;
     background-position: center;
