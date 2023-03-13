@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Nav } from '../components';
 
 export const OnBoarding = () => {
-  const [cookies] = useCookies(['UserId']);
+  const [cookies, setCookies, remove] = useCookies();
   const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: '',
@@ -24,20 +24,17 @@ export const OnBoarding = () => {
   let navigate = useNavigate();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
-    console.log('submitted');
     e.preventDefault();
     try {
-      const response = await axios.put('http://localhost:8000/user', { formData });
-      console.log(response);
+      const response = await axios.put('http://localhost:5000/user', { formData });
       const success = response.status === 200;
       if (success) navigate('/dashboard');
     } catch (err) {
-      console.log(err);
+      throw new Error(`User submitting error ${err}`);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('e', e);
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     const name = e.target.name;
 

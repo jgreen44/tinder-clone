@@ -17,7 +17,7 @@ export const Nav = ({ minimal, showModal, setShowModal, setIsSignUp }: IProps) =
       setIsSignUp(false);
     }
   };
-  const authToken = true;
+  const authToken = false;
   return (
     <nav>
       <div className={'logo-container'}>

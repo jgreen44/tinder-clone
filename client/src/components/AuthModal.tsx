@@ -1,4 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 interface IProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -10,19 +13,32 @@ export const AuthModal = ({ setShowModal, isSignUp }: IProps) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [cookies, setCookies, remove] = useCookies();
+
+  let navigate = useNavigate();
 
   const handleClick = () => {
     setShowModal(false);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if (isSignUp && password !== confirmPassword) {
         setError('Passwords need to match');
+        return;
       }
+      const response = await axios.post(`http://localhost:5000/${isSignUp ? 'signup' : 'login'}`, { email, password });
+      setCookies('AuthToken', response.data.token);
+      setCookies('UserId', response.data.userId);
+
+      const success = response.status === 201;
+
+      if (success && isSignUp) navigate('/onboarding');
+      if (success && !isSignUp) navigate('/dashboard');
+      window.location.reload();
     } catch (err) {
-      console.log(err);
+      throw new Error(`Error encountered AuthModal: ${err}`);
     }
   };
 
