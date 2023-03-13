@@ -38,10 +38,18 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       await getUser();
-      await getGenderedUsers();
     };
     fetchData().catch(console.error);
-  }, [user, genderedUsers]);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
+        await getGenderedUsers();
+      }
+    };
+    fetchData().catch(console.error);
+  }, [user]);
 
   const updatedMatches = async (matchedUserId: string) => {
     try {
@@ -80,7 +88,7 @@ export const Dashboard = () => {
               {filteredGenderedUsers?.map((genderedUser: { first_name: string; url: string; user_id: string }) => (
                 <TinderCard
                   className={'swipe'}
-                  key={genderedUser.first_name}
+                  key={genderedUser.user_id}
                   onSwipe={dir => swiped(dir, genderedUser.user_id)}
                   onCardLeftScreen={() => outOfFrame(genderedUser.first_name)}
                 >
